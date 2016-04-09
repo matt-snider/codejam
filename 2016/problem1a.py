@@ -27,5 +27,9 @@ def will_sleep(n):
 
 
 if __name__ == '__main__':
-    pass
+    T = int(input())
+    for i in range(t):
+        n = input()
+        result = will_sleep(n)
+        print('Case #{}: {}'.format(i + 1, result))
 
