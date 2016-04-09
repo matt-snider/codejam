@@ -38,3 +38,11 @@ def prepare_pancakes(pancakes):
         pancakes = flip(pancakes, n=i)
     return maneuvers
 
+
+if __name__ == '__main__':
+    T = int(input())
+    for i in range(T):
+        pancakes = input()
+        result = prepare_pancakes(pancakes)
+        print('Case #{}: {}'.format(i + 1, result))
+
