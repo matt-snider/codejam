@@ -6,12 +6,11 @@
     is requested, but we find out where it did dig.
 
     Strategy: prepare the orchard in 3x3 blocks beginning at
-    the top right corner, moving across, and then on to the
-    next row. Do not leave a 3x3 block until it has been fully
-    prepared.
+    the top right corner, moving across until the desired area
+    has been reached.
 
-    Request that the Gopher prepare the center space every single
-    time until the block is complete.
+    Always request that the Gopher prepare the center of the current
+    3x3 block until that block is finished.
 """
 import sys
 
@@ -39,21 +38,6 @@ class Block:
         if not self._cells[index_x][index_y]:
             self._cells[index_x][index_y] = True
             self._count_done += 1
-        debug(f'mark_done({index_x}, {index_y}) -> done {self._count_done}')
-
-    def mark_rows_done(self, n_rows):
-        if n_rows > 3:
-            raise IndexError(f'{self} does not have {n_rows} rows')
-        for i in range(0, n_rows):
-            self._cells[i] = [True, True, True]
-
-    def mark_cols_done(self, n_cols):
-        if n_cols > 3:
-            raise IndexError(f'{self} does not have {n_cols} columns')
-
-        for row in self._cells:
-            for i in range(0, n_cols):
-                self._cells[row][i] = True
 
     def is_done(self):
         return self._count_done == 9
@@ -82,32 +66,8 @@ def next_block(plot_size, curr_block=None):
         return Block(PLOT_START + 1, PLOT_START + 1)
 
     # Get the block to the right of and adjancent to
-    # the current one. If this block spills over the
-    # plot's edge, move back and clear any rows that
-    # have already been prepared.
-    beside_x = curr_block.x + 3
-    spill_amount = (beside_x + 1) - plot_size - PLOT_START
-    if spill_amount <= 0:
-        return Block(beside_x, curr_block.y)
-    elif spill_amount < 3:
-        block = Block(beside_x - spill_amount, curr_block.y)
-        block.mark_cols_done(spill_amount)
-        return block
-
-    # Otherwise the entire row is finished. Return the first
-    # block in the next row.
-    below_y = curr_block.y + 3
-    spill_amount = (below_y + 1) - plot_size - PLOT_START
-    if spill_amount <= 0:
-        return Block(PLOT_START, below_y)
-    elif spill_amount < 3:
-        block = Block(PLOT_START, below_y - spill_amount)
-        block.mark_rows_done(spill_amount)
-        return block
-
-    # This would indicate we are done and shouldn't happen
-    # since the judge will respond with 0 0 and end the game.
-    raise ValueError('next_block() requested on finished plot')
+    # the current one.
+    return Block(curr_block.x + 3, curr_block.y)
 
 
 def deploy_gopher(x, y):
