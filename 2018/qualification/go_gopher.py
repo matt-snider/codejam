@@ -15,6 +15,7 @@
 import sys
 
 PLOT_START = 2
+DEBUG = False
 
 
 # Data models
@@ -89,7 +90,8 @@ def judge_responses():
 
 
 def debug(msg):
-    print(msg, file=sys.stderr)
+    if DEBUG:
+        print(msg, file=sys.stderr)
 
 
 if __name__ == '__main__':
