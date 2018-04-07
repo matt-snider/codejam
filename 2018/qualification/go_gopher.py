@@ -33,7 +33,7 @@ class Block:
         index_x = cell_x - (self.x - 1)
         index_y = cell_y - (self.y - 1)
         if (index_x < 0 or index_x > 2) or (index_y < 0 or index_y > 2):
-            raise IndexError(f'{self}: ({cell_x}, {cell_y})')
+            raise IndexError('{}: ({}, {})'.format(self, cell_x, cell_y))
 
         if not self._cells[index_x][index_y]:
             self._cells[index_x][index_y] = True
@@ -43,7 +43,7 @@ class Block:
         return self._count_done == 9
 
     def __str__(self):
-        return f'Block[x={self.x},y={self.y}]'
+        return 'Block[x={},y={}]'.format(self.x, self.y)
 
 
 # Main algorithm
@@ -56,7 +56,7 @@ def dig_plot(size):
 
         if block.is_done():
             block = next_block(size, block)
-            debug(f'Block complete. Next block: {block}')
+            debug('Block complete. Next block: {}'.format(block))
 
         deploy_gopher(block.x, block.y)
 
@@ -71,7 +71,7 @@ def next_block(plot_size, curr_block=None):
 
 
 def deploy_gopher(x, y):
-    print(f'{x} {y}')
+    print('{} {}'.format(x, y))
 
 
 def judge_responses():
@@ -84,7 +84,7 @@ def judge_responses():
             debug('Judge: correct')
             raise StopIteration()
 
-        debug(f'Judge: {x} {y}')
+        debug('Judge: {} {}'.format(x, y))
         yield (x, y)
 
 
