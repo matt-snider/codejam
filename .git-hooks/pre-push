@@ -3,6 +3,9 @@
 # A hook to require the user to confirm the push. This is useful to prevent
 # pushing during the contest.
 
+# Allows us to read user input below, assigns stdin to keyboard
+exec < /dev/tty
+
 while true; do
     read -p "Are you sure you want to push? (y/N) " confirmation
     if [ "$confirmation" = "" ]; then
