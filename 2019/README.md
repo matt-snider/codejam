@@ -21,3 +21,9 @@ $ python3 solution.py
 $ rustc -C opt-level=3 -o 1-solution 1-name-of-problem.rs
 $ ./1-solution
 ```
+* Haskell - 8.0.1
+```sh
+$ ghc +RTS -V0 -RTS -rtsopts -O2 -o 1-solution 1-name-of-problem.hs
+$ ./1-solution +RTS -V0 -RTS
+```
+

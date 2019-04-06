@@ -2,8 +2,13 @@
 *.in
 *.out
 
-# Binaries
+# Build files
+*.o
 *-solution
+
+# Haskell files
+*.hi
 
 # Java files
 *.class
+
