@@ -1,0 +1,26 @@
+#!/bin/sh
+#
+# A hook to require the user to confirm the push. This is useful to prevent
+# pushing during the contest.
+
+while true; do
+    read -p "Are you sure you want to push? (N/y) " confirmation
+    if [ "$confirmation" = "" ]; then
+        confirmation="N";
+    fi
+
+    case $confirmation in
+        [Nn] )
+            echo "Aborting."
+            exit 1
+            ;;
+        [Yy])
+            echo "Confirmed. Pushing..."
+            exit 0
+            ;;
+        *)
+            echo "Please confirm with y or n"
+            ;;
+    esac
+done
+
