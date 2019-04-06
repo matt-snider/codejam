@@ -1,3 +1,9 @@
+# Input files
 *.in
 *.out
+
+# Binaries
+*-solution
+
+# Java files
 *.class
